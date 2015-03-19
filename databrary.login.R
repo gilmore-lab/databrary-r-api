@@ -8,7 +8,8 @@ databrary.login <- function( url.login="https://nyu.databrary.org/api/user/login
   require( httr )
   
   user.email <- readline( prompt="Email: " )
-  user.pw <- readline( prompt="Password: " ) 
+  user.pw <- readline( prompt="Password: " )
+  cat("\014")   # clear console
   post.body = list( "email"=user.email, "password"=user.pw )
   post.hdr = c("x-requested-with" = "true")
   
