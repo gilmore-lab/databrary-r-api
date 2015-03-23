@@ -20,6 +20,7 @@ databrary.login <- function( url.login="https://nyu.databrary.org/api/user/login
   
   if ( status_code(p) == 200 ){
     cat( 'Login Successful.\n' )
+    return( p )
   } else
     cat( paste( 'Login Failed, HTTP status ', status_code(p), '\n', sep="" ) )
 }
