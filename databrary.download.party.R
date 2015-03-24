@@ -12,7 +12,10 @@ databrary.download.party <- function( party=6, to.df=TRUE, return.response=FALSE
   if (".databrary.RData" %in% dir( all.files=TRUE ) ){
     load(".databrary.RData")
     set_config(config(cookie = paste("SESSION=\"", databrary.SESSION, "\"", sep = ""))) 
-  } 
+  } else {
+    source("databrary.login.R")
+    databrary.login()
+  }
   
   party.url <- paste("/api/party/", party, sep="")
   r = GET( paste(databrary.url, party.url, sep="") )

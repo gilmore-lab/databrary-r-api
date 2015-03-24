@@ -12,7 +12,10 @@ databrary.download.csv <- function( volume=1, to.df=TRUE, return.response=FALSE 
   if (".databrary.RData" %in% dir( all.files=TRUE ) ){
     load(".databrary.RData")
     set_config(config(cookie = paste("SESSION=\"", databrary.SESSION, "\"", sep = ""))) 
-  } 
+  } else {
+    source("databrary.login.R")
+    databrary.login()
+  }
   
   csv.url <- paste("/volume/", volume, "/csv", sep="")
   r = GET( paste(databrary.url, csv.url, sep="") )
