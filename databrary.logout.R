@@ -1,19 +1,17 @@
-# databrary.logout( url.login="https://nyu.databrary.org/api/user/logout" )
+# databrary.logout( logout.url="/api/user/logout" )
 #
 # Logs out user.
 #----------------------------------------------------------
 
-databrary.logout <- function( url.logout="https://nyu.databrary.org/api/user/logout" ){
-  require( httr )
+databrary.logout <- function( logout.url="/api/user/logout", return.response=FALSE ){
+  require(httr)
+  databrary.url <- "https://nyu.databrary.org"
+  set_config(add_headers(.headers = c("X-Requested-With" = "databrary R client")))
+    
+  r <- POST( paste(databrary.url, logout.url, sep = ""))
   
-  post.hdr = c("x-requested-with" = "true")
-  
-  p <- POST( url.logout, 
-             add_headers( .headers = post.hdr )
-)
-  
-  if ( status_code(p) == 200 ){
+  if ( status_code(r) == 200 ){
     cat( 'Logout Successful.\n' )
-  } else
-    cat( paste( 'Logout Failed, HTTP status ', status_code(p), '\n', sep="" ) )
+  } else cat( paste( 'Logout Failed, HTTP status ', status_code(r), '\n', sep="" ) )
+  if (return.response) return(r)
 }
