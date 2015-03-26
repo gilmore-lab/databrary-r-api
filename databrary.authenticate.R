@@ -2,7 +2,7 @@ databrary.authenticate <- function(verbose=FALSE) {
 
   if (!databrary.config.status){
     source("databrary.config.R")
-    databrary.config()
+    databrary.config(verbose=verbose)
   }
     
   if (".databrary.RData" %in% dir( all.files=TRUE ) ){

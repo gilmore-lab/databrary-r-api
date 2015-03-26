@@ -4,14 +4,14 @@
 # and converts to R data frame if desired
 #----------------------------------------------------------
 
-databrary.download.csv <- function( volume=1, to.df=TRUE, return.response=FALSE ){
+databrary.download.csv <- function( volume=1, to.df=TRUE, return.response=FALSE, verbose=FALSE ){
 
   if (!databrary.config.status){
     source("databrary.config.R")
-    databrary.config()
+    databrary.config(verbose=verbose)
   }
   
-  databrary.authenticate()
+  databrary.authenticate(verbose=verbose)
   
   csv.url <- paste("/volume/", volume, "/csv", sep="")
   r = GET( paste(databrary.url, csv.url, sep="") )
@@ -24,7 +24,7 @@ databrary.download.csv <- function( volume=1, to.df=TRUE, return.response=FALSE 
       return( r.content )      
     }
   } else {
-    cat( paste( 'Download Failed, HTTP status ', status_code(r), '\n', sep="" ) )
+    if (verbose) cat( paste( 'Download Failed, HTTP status ', status_code(r), '\n', sep="" ) )
     return( r )
   }
 }

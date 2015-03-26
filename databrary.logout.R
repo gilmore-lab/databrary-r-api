@@ -3,11 +3,11 @@
 # Logs out user.
 #----------------------------------------------------------
 
-databrary.logout <- function(logout.url="/api/user/logout", return.response=FALSE){
+databrary.logout <- function(logout.url="/api/user/logout", return.response=FALSE, verbose=TRUE){
 
   if (databrary.config.status){
     source("databrary.config.R")
-    databrary.config()
+    databrary.config(verbose=verbose)
   }
   
   r <- POST( paste(databrary.url, logout.url, sep = ""))

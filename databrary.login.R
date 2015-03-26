@@ -8,7 +8,7 @@ databrary.login <- function( login.url="/api/user/login", return.response=FALSE,
   
   if (!databrary.config.status){
     source("databrary.config.R")
-    databrary.config()
+    databrary.config(verbose=verbose)
   }
   
   email <- readline( prompt="Email: " )

@@ -1,18 +1,23 @@
-databrary.volume.summary <- function(volume=4, plot.style="ggplot"){
+databrary.volume.summary <- function(volume=4, plot.style="ggplot", verbose=FALSE){
 
-  df <- databrary.download.csv(volume=volume)
+  df <- databrary.download.csv(volume=volume, verbose=verbose)
     
   # Convert dates to ages in days
   if("session.date" %in% names(df)) df$session.date <- as.Date(df$session.date)
   if("participant.birthdate" %in% names(df)) df$participant.birthdate <- as.Date(df$participant.birthdate)
   df$age.days <- as.numeric( df$session.date - df$participant.birthdate )
   
-  if (plot.style=="ggplot"){
-    p <- qplot( data=df, y = age.days, x=participant.gender, geom=c("boxplot"), color=participant.race )    
-  } else {
-    par(mfrow=c(1,2))
-    plot(df$participant.gender ~ df$participant.race, xlab="", ylab="Race")
-    hist(na.omit(df$age.days), xlab="Age (days)", main="")
-  }
-  return(p)
+  if (("participant.gender" %in% names(df)) & ("participant.race" %in% names(df))){
+    if (plot.style=="ggplot"){
+      require(ggplot2)
+      p <- qplot( data=df, y = age.days, x=participant.gender, geom=c("boxplot"), color=participant.race ) + 
+        ggtitle(paste("Participant Characteristics for Databrary Volume ", volume, sep=""))
+      return(list("data.frame"=df,"plot"=p))  
+    } else {
+      par(mfrow=c(1,2))
+      plot(df$participant.gender ~ df$participant.race, xlab="", ylab="Race")
+      hist(na.omit(df$age.days), xlab="Age (days)", main="")
+    }
+  } else if (verbose) cat("Nothing to plot.\n")
+  return(list("data.frame"=df))  
 }

@@ -4,16 +4,15 @@
 # Converts from JSON to native R structure if convert.JSON is true
 #----------------------------------------------------------
 
-databrary.download.containers.records <- function( url.base = "https://nyu.databrary.org/api/volume", volume=2, convert.JSON = TRUE ){
+databrary.download.containers.records <- function( url.base = "https://nyu.databrary.org/api/volume", volume=2, convert.JSON = TRUE, verbose=FALSE ){
+
+  require( jsonlite )
   
   if (!databrary.config.status){
     source("databrary.config.R")
-    databrary.config()
+    databrary.config(verbose=verbose)
   }
-  
-  databrary.authenticate()
-  
-  require( jsonlite )
+  databrary.authenticate(verbose=verbose)
   
   url.cont.rec <- paste( url.base, "/", volume, "?", "containers&records", sep="" )
   
@@ -26,7 +25,5 @@ databrary.download.containers.records <- function( url.base = "https://nyu.datab
     } else {
       return( g.content )       
     }
-  } else {
-    cat( paste( 'Download Failed, HTTP status ', status_code(g), '\n', sep="" ) )
-  }
+  } else if (verbose) cat( paste( 'Download Failed, HTTP status ', status_code(g), '\n', sep="" ) )
 }
