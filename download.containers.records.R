@@ -5,7 +5,14 @@
 #----------------------------------------------------------
 
 download.containers.records <- function( url.base = "https://nyu.databrary.org/api/volume", volume=2, convert.JSON = TRUE ){
-  require( httr )
+  
+  if (!databrary.config.status){
+    source("databrary.config.R")
+    databrary.config()
+  }
+  
+  databrary.authenticate()
+  
   require( jsonlite )
   
   url.cont.rec <- paste( url.base, "/", volume, "?", "containers&records", sep="" )

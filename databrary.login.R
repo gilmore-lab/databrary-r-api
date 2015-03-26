@@ -5,10 +5,12 @@
 #----------------------------------------------------------
 
 databrary.login <- function( login.url="/api/user/login", return.response=FALSE, save.session=TRUE ){
-  require(httr)
-  databrary.url <- "https://nyu.databrary.org"
-  set_config(add_headers(.headers = c("X-Requested-With" = "databrary R client")))
-    
+  
+  if (!databrary.config.status){
+    source("databrary.config.R")
+    databrary.config()
+  }
+  
   email <- readline( prompt="Email: " )
   password <- readline( prompt="Password: " )
   cat("\014")   # clear console

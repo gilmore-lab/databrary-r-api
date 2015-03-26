@@ -5,17 +5,13 @@
 #----------------------------------------------------------
 
 databrary.download.csv <- function( volume=1, to.df=TRUE, return.response=FALSE ){
-  require(httr)
-  databrary.url <- "https://nyu.databrary.org"
-  set_config(add_headers(.headers = c("X-Requested-With" = "databrary R client")))
-    
-  if (".databrary.RData" %in% dir( all.files=TRUE ) ){
-    load(".databrary.RData")
-    set_config(config(cookie = paste("SESSION=\"", databrary.SESSION, "\"", sep = ""))) 
-  } else {
-    source("databrary.login.R")
-    databrary.login()
+
+  if (!databrary.config.status){
+    source("databrary.config.R")
+    databrary.config()
   }
+  
+  databrary.authenticate()
   
   csv.url <- paste("/volume/", volume, "/csv", sep="")
   r = GET( paste(databrary.url, csv.url, sep="") )
