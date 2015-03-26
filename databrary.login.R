@@ -4,7 +4,7 @@
 # then logs user in.
 #----------------------------------------------------------
 
-databrary.login <- function( login.url="/api/user/login", return.response=FALSE, save.session=TRUE ){
+databrary.login <- function( login.url="/api/user/login", return.response=FALSE, save.session=TRUE, verbose=FALSE ){
   
   if (!databrary.config.status){
     source("databrary.config.R")
@@ -20,13 +20,13 @@ databrary.login <- function( login.url="/api/user/login", return.response=FALSE,
   rm(email, password)
   
   if ( status_code(r) == 200 ){
-    cat( 'Login Successful.\n' )
+    if (verbose) cat( 'Login Successful.\n' )
     if (save.session){
       databrary.SESSION <- cookies(r)$SESSION
       save(databrary.SESSION, file = ".databrary.RData")
     }
     rm( databrary.SESSION )
-  } else cat( paste( 'Login Failed, HTTP status ', status_code(r), '\n', sep="" ) )
+  } else if (verbose) cat( paste( 'Login Failed, HTTP status ', status_code(r), '\n', sep="" ) )
   
   if (return.response) return(r)
 }

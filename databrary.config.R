@@ -1,5 +1,5 @@
 databrary.config <- function(){
-  if(!exists(databrary.config.status)){
+  if(!exists("databrary.config.status")){
     require(httr)
     source("databrary.login.R")
     source("databrary.authenticate.R")

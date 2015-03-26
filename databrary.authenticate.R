@@ -1,4 +1,4 @@
-databrary.authenticate <- function() {
+databrary.authenticate <- function(verbose=FALSE) {
 
   if (!databrary.config.status){
     source("databrary.config.R")
@@ -10,9 +10,9 @@ databrary.authenticate <- function() {
     set_config(config(cookie = paste("SESSION=\"", databrary.SESSION, "\"", sep = "")))
     r <- HEAD(paste(databrary.url, "/volume/1", sep=""))
     if (status_code(r) != 200){
-      cat("Bad cookie. Login again.\n")
+      if (verbose) cat("Bad cookie. Login again.\n")
       databrary.login()
-    } else cat("Authenticated to Databrary.\n")
+    } else if(verbose) cat("Authenticated to Databrary.\n")
   } else {
     source("databrary.login.R")
     databrary.login()
