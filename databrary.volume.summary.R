@@ -1,13 +1,20 @@
 databrary.volume.summary <- function(volume=4, plot.style="ggplot", verbose=FALSE){
 
   df <- databrary.download.csv(volume=volume, verbose=verbose)
-    
-  # Convert dates to ages in days
-  if("session.date" %in% names(df)) df$session.date <- as.Date(df$session.date)
-  if("participant.birthdate" %in% names(df)) df$participant.birthdate <- as.Date(df$participant.birthdate)
-  df$age.days <- as.numeric( df$session.date - df$participant.birthdate )
+  if (is.null(df)) {
+    stop("Download failed.")
+  }
   
-  if (("participant.gender" %in% names(df)) & ("participant.race" %in% names(df))){
+  # Convert dates to ages in days
+  if("session.date" %in% names(df)) {
+    df$session.date <- as.Date(df$session.date)
+  }
+  if("participant.birthdate" %in% names(df)) {
+    df$participant.birthdate <- as.Date(df$participant.birthdate)
+    df$age.days <- as.numeric( df$session.date - df$participant.birthdate )
+  }
+  
+  if (("participant.gender" %in% names(df)) & ("participant.race" %in% names(df))) {
     if (plot.style=="ggplot"){
       require(ggplot2)
       p <- qplot( data=df, y = age.days, x=participant.gender, geom=c("boxplot"), color=participant.race ) + 

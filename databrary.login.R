@@ -6,9 +6,9 @@
 
 databrary.login <- function( login.url="/api/user/login", return.response=FALSE, save.session=TRUE, verbose=FALSE ){
   
-  if (!databrary.config.status){
+  if (!exists("databrary.config.status")) {
     source("databrary.config.R")
-    databrary.config(verbose=verbose)
+    databrary.config(verbose = verbose)
   }
   
   email <- readline( prompt="Email: " )
@@ -22,10 +22,11 @@ databrary.login <- function( login.url="/api/user/login", return.response=FALSE,
   if ( status_code(r) == 200 ){
     if (verbose) cat( 'Login Successful.\n' )
     if (save.session){
-      databrary.SESSION <- cookies(r)$SESSION
+      databrary.SESSION <- cookies(r)$value
       save(databrary.SESSION, file = ".databrary.RData")
+    } else {
+      rm( databrary.SESSION )      
     }
-    rm( databrary.SESSION )
   } else if (verbose) cat( paste( 'Login Failed, HTTP status ', status_code(r), '\n', sep="" ) )
   
   if (return.response) return(r)

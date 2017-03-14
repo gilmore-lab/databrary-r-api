@@ -19,12 +19,18 @@ databrary.download.csv <- function( volume=1, to.df=TRUE, return.response=FALSE,
   if ( status_code(r) == 200 ){
     r.content <- content( r, 'text' )
     if( to.df == TRUE ){
-      return( read.csv( text = r.content ) )
+      r.df <- read.csv( text = r.content )
+      if (class(r.df)=="data.frame") {
+        return( r.df )
+      } else {
+        if (verbose) cat("Can't coerce to data frame. Skipping.\n")
+        return( NULL )
+      }
     } else {
       return( r.content )      
     }
   } else {
     if (verbose) cat( paste( 'Download Failed, HTTP status ', status_code(r), '\n', sep="" ) )
-    return( r )
+    if (return.response) return( r )
   }
 }

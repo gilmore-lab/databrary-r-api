@@ -5,9 +5,9 @@
 
 databrary.logout <- function(logout.url="/api/user/logout", return.response=FALSE, verbose=TRUE){
 
-  if (databrary.config.status){
+  if (!exists("databrary.config.status")) {
     source("databrary.config.R")
-    databrary.config(verbose=verbose)
+    databrary.config(verbose = verbose)
   }
   
   r <- POST( paste(databrary.url, logout.url, sep = ""))

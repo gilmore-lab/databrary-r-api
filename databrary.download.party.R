@@ -6,9 +6,9 @@
 
 databrary.download.party <- function( party=6, to.df=TRUE, return.response=FALSE ){
 
-  if (!databrary.config.status){
+  if (!exists("databrary.config.status")) {
     source("databrary.config.R")
-    databrary.config()
+    databrary.config(verbose = verbose)
   }
   
   databrary.authenticate()
