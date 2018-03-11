@@ -1,7 +1,7 @@
-databrary.authenticate <- function(verbose=FALSE) {
-  if (!exists("databrary.config.status")) {
-    source("databrary.config.R")
-    databrary.config(verbose = verbose)
+databrary_authenticate <- function(verbose=FALSE) {
+  if (!exists("databrary_config_status")) {
+    source("databrary_config.R")
+    databrary_config(verbose = verbose)
   }
 
   # This gives 405 Method Not Allowed. Has method changed?
@@ -13,13 +13,13 @@ databrary.authenticate <- function(verbose=FALSE) {
       if (verbose) {
         cat(sprintf("\nStatus %i. Must login again.\n", status_code(r)))
       }
-      source("databrary.login.R")
-      databrary.login()
+      source("databrary_login.R")
+      databrary_login()
     } else if(verbose) {
       cat("Authenticated to Databrary.\n")
     }
   } else {
-    source("databrary.login.R")
-    databrary.login()
+    source("databrary_login.R")
+    databrary_login()
   }
 }

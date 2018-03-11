@@ -4,14 +4,14 @@
 # then logs user in.
 #----------------------------------------------------------
 
-databrary.login <- function( login.url="/api/user/login", 
+databrary_login <- function( login.url="/api/user/login", 
                              return.response=FALSE, save.session=TRUE,
                              stored.credentials=TRUE,
                              credentials.file="~/api-keys/json/databrary-keys.json",
                              verbose=FALSE ){
   
-  if (!exists("databrary.config.status")) {
-    source("databrary.config.R")
+  if (!exists("databrary_config_status")) {
+    source("databrary_config.R")
     databrary.config(verbose = verbose)
   }
   

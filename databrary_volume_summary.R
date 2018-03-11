@@ -1,9 +1,9 @@
-databrary.volume.summary <- function(volume=4, plot.style="ggplot", verbose=FALSE){
+databrary_volume_summary <- function(volume=4, plot.style="ggplot", verbose=FALSE){
 
   require(ggplot2)
-  source("databrary.download.csv.R")
+  source("databrary_download_csv.R")
   
-  df <- databrary.download.csv(volume=volume, verbose=verbose)
+  df <- databrary_download_csv(volume=volume, verbose=verbose)
   if (is.null(df)) {
     stop("Download failed.")
   }
