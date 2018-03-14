@@ -1,16 +1,16 @@
-databrary_download_asset <- function(file.name = "test.mp4", slot = 9825, asset = 11643,
+databrary_download_asset <- function(asset = 11643, slot = 9825, file.name = "test.mp4",
                                      return.response=FALSE, verbose=FALSE) {
   # Downloads a Databrary asset given a volume, slot, asset and segment.
   #
   # Args:
-  #  slot: Databrary slot number (integer). Default is 9825.
   #  asset: Databrary asset number (integer). Default is 11643.
+  #  slot: Databrary slot number (integer). Default is 9825.
   #  return.response: Flag specifying whether to return the HTTP response. Default is FALSE.
   #  verbose: Flag specifying whether to provide verbose status messages. Default is FALSE.
   #
   # Returns:
-  #  A specified (video or audio) asset.
-
+  #  A given asset saved as a file.
+  
   # Error handling
   if (!is.character(file.name)) {
     stop("File.name must be character string.")
@@ -28,9 +28,8 @@ databrary_download_asset <- function(file.name = "test.mp4", slot = 9825, asset 
     stop("Asset must be > 0.")
   }
   
+  # Requirements
   require(rvest)
-  query.type <- "download"
-  # inline.val <- "true"
 
   if ((!exists("databrary_config_status")) || (!databrary_config_status)) {
     source("databrary_config.R")
@@ -40,7 +39,7 @@ databrary_download_asset <- function(file.name = "test.mp4", slot = 9825, asset 
   source("databrary_authenticate.R")
   databrary_authenticate(verbose=verbose)
 
-  asset.url <- paste("/slot", slot, "-", "asset", asset, query.type, sep="/")
+  asset.url <- paste("/slot", slot, "-", "asset", asset, "download", sep="/")
   url.download <- paste0(databrary.url, asset.url)
 
   webpage <- html_session(url.download)

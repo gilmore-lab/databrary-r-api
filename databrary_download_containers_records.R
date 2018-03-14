@@ -1,5 +1,5 @@
 databrary_download_containers_records <- function(url.base = "https://nyu.databrary.org/api/volume", 
-                                                  volume = 2, convert.JSON = TRUE, verbose = FALSE ) {
+                                                  volume = 2, convert.JSON = TRUE, verbose = FALSE) {
   # Downloads container and record structure for a given Databrary volume
   # Converts from JSON to a native R structure if requested.
   #

@@ -9,4 +9,5 @@ R code to access the Databrary.org API.
 - `databrary_download.csv.R`
 - `databrary_download_containers_records.R`
 - `databrary_download_party.R`
-- `databrary_download_volume_summary.R`, Plots gender x age distribution by race.
+- `databrary_summarize_volume.R`, Plots gender x age distribution by race.
+- `databrary_list_assets.R`, Lists downloadable assets given a volume and session/slot ID.

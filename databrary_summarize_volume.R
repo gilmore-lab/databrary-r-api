@@ -1,9 +1,12 @@
-databrary_summarize_volume <- function(volume = 4, plot.style="ggplot", verbose=FALSE) {
+databrary_summarize_volume <- function(volume = 4, plot.style="ggplot", 
+                                       return.df = FALSE, verbose=FALSE) {
   # Downloads volume CSV and plots summary data for participant race, ethnicity, and age
   #
   # Args:
   #  volume: Databrary volume (integer). Default is 4.
   #  plot.style: Type of plotting commands to use. Default is 'ggplot'.
+  #  return.df: Flag indicating whether or not to return the spreadsheet as a data frame. Default is
+  #    FALSE.
   #  verbose: Flag specifying whether to provide verbose status messages. Default is FALSE.
   
   # Error handling
@@ -36,7 +39,11 @@ databrary_summarize_volume <- function(volume = 4, plot.style="ggplot", verbose=
       require(ggplot2)
       p <- qplot(data=df, y = age.days, x=participant.gender, geom=c("boxplot"), color=participant.race) + 
         ggtitle(paste("Participant Characteristics for Databrary Volume ", volume, sep=""))
-      return(list("data.frame"=df,"plot"=p))  
+      if (return.df) {
+        return(list("data.frame"=df,"plot"=p))          
+      } else {
+        return(p)
+      }
     } else {
       par(mfrow=c(1,2))
       plot(df$participant.gender ~ df$participant.race, xlab="", ylab="Race")
@@ -44,5 +51,4 @@ databrary_summarize_volume <- function(volume = 4, plot.style="ggplot", verbose=
     }
   } else if (verbose) cat("Nothing to plot.\n")
   # TODO(someone): Add support for other types of plotting, e.g. base graphics
-  return(list("data.frame"=df))  
 }
