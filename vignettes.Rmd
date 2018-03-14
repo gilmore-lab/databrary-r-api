@@ -17,7 +17,11 @@ This document describes some explorations of Databrary using a set of R function
 
 ## Use case: Summarizing the demographics of a dataset
 
-Let's say that I want to examine the demographic distribution of a shared dataset. The `databrary_summarize_volume()` command does this for me. It downloads the spreadsheet for a given volume -- the default is volume 4, Adolph, K. (2013). Crawling and walking infants see the world differently. Databrary. Retrieved March 14, 2018 from http://doi.org/10.17910/B7RP4H -- then creates a boxplot of the age distribution by race or ethnicity.
+Let's say that I want to examine the demographic distribution of a shared dataset. The `databrary_summarize_volume()` command does this for me. It downloads the spreadsheet for a given volume -- the default is volume 4:
+
+    Adolph, K. (2013). Crawling and walking infants see the world differently. Databrary. Retrieved March 14, 2018 from http://doi.org/10.17910/B7RP4H
+    
+Then it creates a boxplot of the age distribution by race or ethnicity.
 
 ```{r demographics-plot-default}
 source("databrary_summarize_volume.R")
@@ -28,12 +32,12 @@ Here, it appears that the spreadsheet contains some records where the gender was
 
 Let's try another example from a different dataset.
 
-Tamis-LeMonda, C. (2013). Language, cognitive, and socio-emotional skills from 9 months until their transition to first grade in U.S. children from African-American, Dominican, Mexican, and Chinese backgrounds. Databrary. Retrieved March 14, 2018 from http://doi.org/10.17910/B7CC74.
+    Tamis-LeMonda, C. (2013). Language, cognitive, and socio-emotional skills from 9 months until their transition to first grade in U.S. children from African-American, Dominican, Mexican, and Chinese backgrounds. Databrary. Retrieved March 14, 2018 from http://doi.org/10.17910/B7CC74.
 
 *I've commented this out because it seems to time out during the knit process. The command does work when run on its own.*
 
 ```{r demographics-plot-cathie}
-#databrary_summarize_volume(volume = 8)
+databrary_summarize_volume(volume = 8)
 ```
 Again, there appear to be some non-session rows in the spreadsheet.
 
@@ -41,30 +45,30 @@ Again, there appear to be some non-session rows in the spreadsheet.
 
 Let's imagine that I want to list all of the video files in a given session of a specific volume. First, I need to identify the session IDs for a given volume. We'll use the PLAY pilot volume as an illustration.
 
-Adolph, K., Tamis-LeMonda, C. & Gilmore, R.O. (2017). PLAY Pilot Data Collections. Databrary. Retrieved March 14, 2018 from https://nyu.databrary.org/volume/444
+    Adolph, K., Tamis-LeMonda, C. & Gilmore, R.O. (2017). PLAY Pilot Data Collections. Databrary. Retrieved March 14, 2018 from https://nyu.databrary.org/volume/444
 
 ```{r list-session-IDs}
 source("databrary_download_containers_records.R")
 this.vol <- 444
-vol444 <- databrary_download_containers_records(volume = this.vol)
-str(vol444)
+vol.444 <- databrary_download_containers_records(volume = this.vol)
+str(vol.444)
 ```
 
-There's a lot of information here. The `containers` field of this list contains the session ID numbers. These can be accessed via `vol444$containers$id`.
+There's a lot of information here. The `containers` field of this list contains the session ID numbers. These can be accessed via `vol.444$containers$id`.
 
 ```{r show-session-ids}
-vol444$containers$id
+vol.444$containers$id
 ```
  
- Based on the `containers$date` field, it looks like the first entry is not a real session, so let's list the videos in the second entry, the one with the test date equal to `r vol444$containers$date[2]`. 
+ Based on the `containers$date` field, it looks like the first entry is not a real session, so let's list the videos in the second entry, the one with the test date equal to `r vol.444$containers$date[2]`. 
  
 ```{r list-videos-date2}
 source("databrary_list_assets.R")
-this.slot <- vol444$containers$id[2]
+this.slot <- vol.444$containers$id[2]
 databrary_list_assets(volume = 444, slot = this.slot)
 ```
  
- It looks like there's one movie file there. A quick visit to volume `r this.vol`, slot `r vol444$containers$id[2]` at `r paste0("https://databrary.org/volume/", this.vol, "/slot/", this.slot, "/-")` shows that this looks right.
+ It looks like there's one movie file there. A quick visit to volume `r this.vol`, slot `r vol.444$containers$id[2]` at `r paste0("https://databrary.org/volume/", this.vol, "/slot/", this.slot, "/-")` shows that this looks right.
  
 I could download this video, but it's big. So, let's do that in the next vignette with a smaller video file.
 
@@ -72,7 +76,7 @@ I could download this video, but it's big. So, let's do that in the next vignett
 
 Let's download the stimulus samples used in this study:
 
-Gilmore, R.O. (2014). Four-month-olds' discrimination of optic flow patterns depicting different directions of observer motion. Databrary. Retrieved March 14, 2018 from http://doi.org/10.17910/B7Z593.
+    Gilmore, R.O. (2014). Four-month-olds' discrimination of optic flow patterns depicting different directions of observer motion. Databrary. Retrieved March 14, 2018 from http://doi.org/10.17910/B7Z593.
 
 Let's see how many sessions there are.
 
