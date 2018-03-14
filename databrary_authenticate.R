@@ -1,11 +1,16 @@
 databrary_authenticate <- function(verbose=FALSE) {
+  # Authenticates to Databrary.
+  # 
+  # Args:
+  #  verbose: Flag specifying whether to provide verbose status messages. Default is FALSE.
+
   if (!exists("databrary_config_status")) {
     source("databrary_config.R")
     databrary_config(verbose = verbose)
   }
 
   # This gives 405 Method Not Allowed. Has method changed?
-  if (".databrary.RData" %in% dir( all.files=TRUE ) ){
+  if (".databrary.RData" %in% dir(all.files=TRUE)){
     load(".databrary.RData")
     set_config(config(cookie = paste("session=\"", databrary.SESSION, "\"", sep = "")))
     r <- HEAD(paste(databrary.url, "/volume/1", sep=""))
