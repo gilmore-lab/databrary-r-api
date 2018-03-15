@@ -19,7 +19,7 @@ This document describes some explorations of Databrary using a set of R function
 
 Let's say that I want to examine the demographic distribution of a shared dataset. The `databrary_summarize_volume()` command does this for me. It downloads the spreadsheet for a given volume -- the default is volume 4:
 
-    Adolph, K. (2013). Crawling and walking infants see the world differently. Databrary. Retrieved March 14, 2018 from http://doi.org/10.17910/B7RP4H
+    Adolph, K. (2013). Crawling and walking infants see the world differently. Databrary. Retrieved March 14, 2018 from <http://doi.org/10.17910/B7RP4H>.
     
 Then it creates a boxplot of the age distribution by race or ethnicity.
 
@@ -32,7 +32,7 @@ Here, it appears that the spreadsheet contains some records where the gender was
 
 Let's try another example from a different dataset.
 
-    Tamis-LeMonda, C. (2013). Language, cognitive, and socio-emotional skills from 9 months until their transition to first grade in U.S. children from African-American, Dominican, Mexican, and Chinese backgrounds. Databrary. Retrieved March 14, 2018 from http://doi.org/10.17910/B7CC74.
+    Tamis-LeMonda, C. (2013). Language, cognitive, and socio-emotional skills from 9 months until their transition to first grade in U.S. children from African-American, Dominican, Mexican, and Chinese backgrounds. Databrary. Retrieved March 14, 2018 from <http://doi.org/10.17910/B7CC74>.
 
 *I've commented this out because it seems to time out during the knit process. The command does work when run on its own.*
 
@@ -76,7 +76,7 @@ I could download this video, but it's big. So, let's do that in the next vignett
 
 Let's download the stimulus samples used in this study:
 
-    Gilmore, R.O. (2014). Four-month-olds' discrimination of optic flow patterns depicting different directions of observer motion. Databrary. Retrieved March 14, 2018 from http://doi.org/10.17910/B7Z593.
+    Gilmore, R.O. (2014). Four-month-olds' discrimination of optic flow patterns depicting different directions of observer motion. Databrary. Retrieved March 14, 2018 from <http://doi.org/10.17910/B7Z593>.
 
 Let's see how many sessions there are.
 
